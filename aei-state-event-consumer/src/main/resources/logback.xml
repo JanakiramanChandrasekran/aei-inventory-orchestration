@@ -1,0 +1,25 @@
+<configuration>
+	<statusListener
+		class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+	<appender name="jsonConsoleAppender"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+			<fieldNames>
+				<logger>[ignore]</logger>
+				<version>[ignore]</version>
+				<levelValue>[ignore]</levelValue>
+			</fieldNames>
+		</encoder>
+	</appender>
+	<appender name="ASYNC"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+		<neverBlock>true</neverBlock>
+		<queueSize>256</queueSize> <!-- default 256 -->
+		<appender-ref ref="jsonConsoleAppender" />
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="ASYNC" />
+	</root>
+</configuration>
